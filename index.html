@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projeto JKCN</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #e0f7ff, #ffffff);
+      overflow: hidden;
+      text-align: center;
+      transition: background 1s;
+    }
+
+    #container {
+      padding: 20px;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+    }
+
+    button, .option {
+      background-color: #007bff;
+      border: none;
+      padding: 12px 20px;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .option-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .error-message {
+      color: red;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100%);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2 id="message">Bem-vinda, meu amor ❤️</h2>
+    <button onclick="nextStep()">Prosseguir</button>
+  </div>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    let step = 0;
+
+    function nextStep() {
+      const container = document.getElementById('container');
+      step++;
+
+      if (step === 1) {
+        document.body.style.background = 'linear-gradient(135deg, #e0f7ff, #ffffff)';
+        updateButtonColors('#007bff');
+
+        container.innerHTML = `
+          <h2>Quanto é 3 ao quadrado?</h2>
+          <div class="option-container">
+            <button class="option" onclick="wrongAnswer()">6</button>
+            <button class="option" onclick="nextQuestion()">9</button>
+          </div>
+          <div id="error" class="error-message"></div>
+        `;
+      }
+    }
+
+    function wrongAnswer() {
+      const errorDiv = document.getElementById('error');
+      if (errorDiv) {
+        errorDiv.textContent = "Tente novamente! ❤️";
+      }
+    }
+
+    function nextQuestion() {
+      const container = document.getElementById('container');
+
+      container.innerHTML = `
+        <h2>Qual a capital do Chile?</h2>
+        <div class="option-container">
+          <button class="option" onclick="wrongAnswer()">Buenos Aires</button>
+          <button class="option" onclick="wrongAnswer()">Lima</button>
+          <button class="option" onclick="correctAnswer()">Santiago</button>
+        </div>
+        <div id="error" class="error-message"></div>
+      `;
+    }
+
+    function correctAnswer() {
+      const container = document.getElementById('container');
+
+      document.body.style.background = 'linear-gradient(135deg, #ffe6f0, #ffe0ec)';
+      updateButtonColors('#ff5c8d');
+
+      container.innerHTML = `
+        <h2>Eu sei que você quer um pedido discreto entre nós dois e que eu caprichasse. Esse é meu capricho. Quer se casar comigo? É exatamente isso, quer ser minha esposa?</h2>
+        <div class="option-container">
+          <button class="option" onclick="showHearts()">Sim!</button>
+          <button class="option" onclick="showHearts()">Com certeza!</button>
+        </div>
+      `;
+    }
+
+    function showHearts() {
+      const heartsContainer = document.getElementById('hearts');
+      const heartEmojis = ['❤️','💖','🩷'];
+      for (let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.top = Math.random() * 100 + 'vh';
+        heart.style.fontSize = (20 + Math.random() * 20) + 'px';
+        heartsContainer.appendChild(heart);
+      }
+      document.getElementById('container').innerHTML = '<h2>Te amo! 💖</h2>';
+    }
+
+    function updateButtonColors(color) {
+      const style = document.createElement('style');
+      style.innerHTML = `
+        button, .option {
+          background-color: ${color} !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  </script>
+</body>
+</html>
