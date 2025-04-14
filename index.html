@@ -83,93 +83,93 @@
 <body>
   <div id="container">
     <h2 id="message">Bem-vinda ao projeto jkcn</h2>
-    <button onclick="nextStep()">Prosseguir</button>
+    <button onclick="proximaEtapa()">Prosseguir</button>
   </div>
 
   <div class="hearts" id="hearts"></div>
 
   <script>
-    let step = 0;
-
-    function nextStep() {
+    let etapa = 0;
+  
+    function proximaEtapa() {
       const container = document.getElementById('container');
-      step++;
-
-      if (step === 1) {
+      etapa++;
+  
+      if (etapa === 1) {
         document.body.style.background = 'linear-gradient(135deg, #e0f7ff, #ffffff)';
-        updateButtonColors('#007bff');
-
+        atualizarCoresDosBotoes('#007bff');
+  
         container.innerHTML = `
           <h2>Quanto é 3 ao quadrado?</h2>
           <div class="option-container">
-            <button class="option" onclick="wrongAnswer()">6</button>
-            <button class="option" onclick="nextQuestion()">9</button>
+            <button class="option" onclick="respostaErrada()">6</button>
+            <button class="option" onclick="proximaPergunta()">9</button>
           </div>
-          <div id="error" class="error-message"></div>
+          <div id="erro" class="error-message"></div>
         `;
       }
     }
-
-    function wrongAnswer() {
-      const errorDiv = document.getElementById('error');
-      if (errorDiv) {
-        errorDiv.textContent = "Tente novamente! ❤️";
+  
+    function respostaErrada() {
+      const erroDiv = document.getElementById('erro');
+      if (erroDiv) {
+        erroDiv.textContent = "Tente novamente! ❤️";
       }
     }
-
-    function nextQuestion() {
+  
+    function proximaPergunta() {
       const container = document.getElementById('container');
-
+  
       container.innerHTML = `
         <h2>Qual a capital do Chile?</h2>
         <div class="option-container">
-          <button class="option" onclick="wrongAnswer()">Buenos Aires</button>
-          <button class="option" onclick="wrongAnswer()">Lima</button>
-          <button class="option" onclick="correctAnswer()">Santiago</button>
+          <button class="option" onclick="respostaErrada()">Buenos Aires</button>
+          <button class="option" onclick="respostaErrada()">Lima</button>
+          <button class="option" onclick="respostaCorreta()">Santiago</button>
         </div>
-        <div id="error" class="error-message"></div>
+        <div id="erro" class="error-message"></div>
       `;
     }
-
-    function correctAnswer() {
+  
+    function respostaCorreta() {
       const container = document.getElementById('container');
-
+  
       document.body.style.background = 'linear-gradient(135deg, #ffe6f0, #ffe0ec)';
-      updateButtonColors('#ff5c8d');
-
+      atualizarCoresDosBotoes('#ff5c8d');
+  
       container.innerHTML = `
         <h2>Eu sei que você quer um pedido discreto entre nós dois e que eu caprichasse. Esse é meu capricho. Quer se casar comigo? É exatamente isso! Aceita ser minha esposa?</h2>
         <div class="option-container">
-          <button class="option" onclick="showHearts()">Sim!</button>
-          <button class="option" onclick="showHearts()">Com certeza!</button>
+          <button class="option" onclick="mostrarCoracoes()">Sim!</button>
+          <button class="option" onclick="mostrarCoracoes()">Com certeza!</button>
         </div>
       `;
     }
-
-    function showHearts() {
-      const heartsContainer = document.getElementById('hearts');
-      const heartEmojis = ['❤️','💖','🩷'];
+  
+    function mostrarCoracoes() {
+      const coracoesContainer = document.getElementById('hearts');
+      const emojisDeCoracao = ['❤️', '💖', '🩷'];
       for (let i = 0; i < 50; i++) {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-        heart.style.left = Math.random() * 100 + 'vw';
-        heart.style.top = Math.random() * 100 + 'vh';
-        heart.style.fontSize = (20 + Math.random() * 20) + 'px';
-        heartsContainer.appendChild(heart);
+        const coracao = document.createElement('div');
+        coracao.classList.add('heart');
+        coracao.textContent = emojisDeCoracao[Math.floor(Math.random() * emojisDeCoracao.length)];
+        coracao.style.left = Math.random() * 100 + 'vw';
+        coracao.style.top = Math.random() * 100 + 'vh';
+        coracao.style.fontSize = (20 + Math.random() * 20) + 'px';
+        coracoesContainer.appendChild(coracao);
       }
       document.getElementById('container').innerHTML = '<h2>Te amo! 💖</h2>';
     }
-
-    function updateButtonColors(color) {
-      const style = document.createElement('style');
-      style.innerHTML = `
+  
+    function atualizarCoresDosBotoes(cor) {
+      const estilo = document.createElement('style');
+      estilo.innerHTML = `
         button, .option {
-          background-color: ${color} !important;
+          background-color: ${cor} !important;
         }
       `;
-      document.head.appendChild(style);
+      document.head.appendChild(estilo);
     }
-  </script>
+  </script>  
 </body>
 </html>
